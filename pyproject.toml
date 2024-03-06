@@ -1,0 +1,19 @@
+[project]
+name = "image_tool_pyside6"
+version = "0.0.1.dev"
+description = "Default template for PDM package"
+authors = [
+    {name = "TaoChenyue", email = "chenyue.Tao@qq.com"},
+]
+dependencies = [
+    "pyside6==6.4.3",
+    "pillow>=10.2.0",
+    "opencv-python>=4.9.0.80",
+]
+requires-python = "==3.10.*"
+readme = "README.md"
+license = {text = "GPLv3"}
+
+
+[tool.pdm]
+distribution = false
