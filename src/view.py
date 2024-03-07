@@ -17,7 +17,7 @@ from PIL import Image, ImageQt
 
 
 class ImageScene(QGraphicsScene):
-    cut_rectangle_clicked = Signal(QPointF)
+    ...
 
 
 class CutRectangleItem(QGraphicsRectItem):
@@ -25,7 +25,7 @@ class CutRectangleItem(QGraphicsRectItem):
         super().__init__()
         self.setVisible(False)
         self.setPen(QPen(Qt.red, 2))
-        self.setAcceptedMouseButtons(Qt.MouseButton.LeftButton)
+        # self.setAcceptedMouseButtons(Qt.MouseButton.LeftButton)
         self.cut_width: int = 100
         self.cut_height: int = 100
         self.setRect(0, 0, self.cut_width, self.cut_height)
@@ -43,11 +43,6 @@ class CutRectangleItem(QGraphicsRectItem):
             self.cut_height,
         )
 
-    def mousePressEvent(self, event: QGraphicsSceneMouseEvent) -> None:
-        scene: ImageScene = self.scene()
-        scene.cut_rectangle_clicked.emit(event.scenePos())
-        return super().mousePressEvent(event)
-
 
 class ImageViewer(QGraphicsView):
     """图片查看器"""
@@ -64,6 +59,9 @@ class ImageViewer(QGraphicsView):
         self.pixmap = QPixmap()
         self.pixmapItem = QGraphicsPixmapItem()
         self.displayedImageSize = QSize(0, 0)
+        
+        # 鼠标记录
+        self.cursorPos = QPointF()
 
         # 裁剪框
         self.cut_rectangle = CutRectangleItem()
@@ -210,6 +208,7 @@ class ImageViewer(QGraphicsView):
 
     def mouseMoveEvent(self, event: QMouseEvent) -> None:
         self.cut_rectangle.setCutPoint(self.mapToScene(event.pos()))
+        self.cursorPos = self.mapToScene(event.pos())
         return super().mouseMoveEvent(event)
 
 

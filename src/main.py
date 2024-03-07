@@ -140,8 +140,7 @@ class ProcessWindow(QMainWindow, Ui_MainWindow):
         if self.output_dir is None or not self.output_dir.exists():
             QMessageBox.warning(self, "警告", "输出文件夹不存在！")
             return
-        point = self.mapTo(self.view, self.cursor().pos())
-        point = self.view.mapToScene(point)
+        point = self.view.cursorPos
         point = point.toPoint()
         x, y = point.x(), point.y()
         w, h = self.view.cut_rectangle.cut_width, self.view.cut_rectangle.cut_height
