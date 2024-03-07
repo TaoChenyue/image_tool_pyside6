@@ -4,6 +4,21 @@ import numpy as np
 # import pywt
 from PIL import Image
 
+class Transform:
+    name: str
+    
+    def __init__(self) -> None:
+        pass
+
+    def __call__(self,image:Image.Image)->Image.Image:
+        raise NotImplementedError("Transform not implemented")
+    
+class NoTransform(Transform):
+    name = "NoTransform"
+    
+    def __call__(self, image: Image.Image):
+        return image
+
 
 class GrayTransform:
     name: str
