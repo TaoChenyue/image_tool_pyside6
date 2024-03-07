@@ -34,10 +34,8 @@ class ProcessWindow(QMainWindow, Ui_MainWindow):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setupUi(self)
-        self.splitter_2.setStretchFactor(1, 5)
-        self.splitter.setStretchFactor(1, 5)
-        self.tab_transform.setCurrentWidget(self.tbw_size)
-        self.tab_size.setCurrentWidget(self.tbw_cut)
+        self.splitter.setStretchFactor(1,5)
+        self.splitter_2.setStretchFactor(1,5)
 
         self.output_dir: Path | None = None
         self.image: Image.Image | None = None
@@ -56,6 +54,8 @@ class ProcessWindow(QMainWindow, Ui_MainWindow):
             lambda x: self.rotate_angle.setText(f"{x-180}°")
         )
         self.slider_rotate.valueChanged.connect(self.set_image)
+        self.btn_rotate_left.clicked.connect(lambda: self.slider_rotate.setValue(self.slider_rotate.value() - 1))
+        self.btn_rotate_right.clicked.connect(lambda: self.slider_rotate.setValue(self.slider_rotate.value() + 1))
 
         self.checkBox_cut.stateChanged.connect(self.set_cut)
         self.cut_height.valueChanged.connect(self.set_cut)
