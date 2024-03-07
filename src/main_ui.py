@@ -11,11 +11,10 @@
 from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
     QMetaObject, QObject, QPoint, QRect,
     QSize, QTime, QUrl, Qt)
-from PySide6.QtGui import (QAction, QBrush, QColor, QConicalGradient,
-    QCursor, QFont, QFontDatabase, QGradient,
-    QIcon, QImage, QKeySequence, QLinearGradient,
-    QPainter, QPalette, QPixmap, QRadialGradient,
-    QTransform)
+from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
+    QFont, QFontDatabase, QGradient, QIcon,
+    QImage, QKeySequence, QLinearGradient, QPainter,
+    QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QCheckBox, QDoubleSpinBox, QFrame,
     QGridLayout, QHBoxLayout, QLabel, QListWidget,
     QListWidgetItem, QMainWindow, QPushButton, QSizePolicy,
@@ -29,13 +28,6 @@ class Ui_MainWindow(object):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
         MainWindow.resize(800, 600)
-        self.actionOrigin = QAction(MainWindow)
-        self.actionOrigin.setObjectName(u"actionOrigin")
-        self.actionCLAHE = QAction(MainWindow)
-        self.actionCLAHE.setObjectName(u"actionCLAHE")
-        self.actioncut = QAction(MainWindow)
-        self.actioncut.setObjectName(u"actioncut")
-        self.actioncut.setCheckable(True)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.gridLayout = QGridLayout(self.centralwidget)
@@ -229,6 +221,11 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_3.addWidget(self.cut_height)
 
+        self.btn_confirm_cut = QPushButton(self.tbw_cut)
+        self.btn_confirm_cut.setObjectName(u"btn_confirm_cut")
+
+        self.horizontalLayout_3.addWidget(self.btn_confirm_cut)
+
         self.tab_size.addTab(self.tbw_cut, "")
         self.tbw_rotate = QWidget()
         self.tbw_rotate.setObjectName(u"tbw_rotate")
@@ -242,6 +239,7 @@ class Ui_MainWindow(object):
         self.slider_rotate = QSlider(self.tbw_rotate)
         self.slider_rotate.setObjectName(u"slider_rotate")
         self.slider_rotate.setMaximum(360)
+        self.slider_rotate.setValue(180)
         self.slider_rotate.setOrientation(Qt.Horizontal)
 
         self.horizontalLayout_6.addWidget(self.slider_rotate)
@@ -274,9 +272,6 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"\u56fe\u50cf\u5904\u7406\u5de5\u5177", None))
-        self.actionOrigin.setText(QCoreApplication.translate("MainWindow", u"\u539f\u56fe", None))
-        self.actionCLAHE.setText(QCoreApplication.translate("MainWindow", u"CLAHE", None))
-        self.actioncut.setText(QCoreApplication.translate("MainWindow", u"\u88c1\u526a", None))
         self.btn_input.setText(QCoreApplication.translate("MainWindow", u"\u8f93\u5165\u6587\u4ef6", None))
         self.lb_input_nums.setText(QCoreApplication.translate("MainWindow", u"\u6587\u4ef6\u4e2a\u6570", None))
         self.btn_clearfiles.setText(QCoreApplication.translate("MainWindow", u"\u6e05\u7a7a\u6587\u4ef6", None))
@@ -301,6 +296,10 @@ class Ui_MainWindow(object):
         self.checkBox_cut_origin.setText(QCoreApplication.translate("MainWindow", u"\u4f7f\u7528\u539f\u56fe", None))
         self.label_3.setText(QCoreApplication.translate("MainWindow", u"\u5bbd", None))
         self.label_4.setText(QCoreApplication.translate("MainWindow", u"\u9ad8", None))
+        self.btn_confirm_cut.setText(QCoreApplication.translate("MainWindow", u"\u786e\u8ba4\u88c1\u526a", None))
+#if QT_CONFIG(shortcut)
+        self.btn_confirm_cut.setShortcut(QCoreApplication.translate("MainWindow", u"S", None))
+#endif // QT_CONFIG(shortcut)
         self.tab_size.setTabText(self.tab_size.indexOf(self.tbw_cut), QCoreApplication.translate("MainWindow", u"\u88c1\u526a", None))
         self.rotate_angle.setText(QCoreApplication.translate("MainWindow", u"0", None))
         self.tab_size.setTabText(self.tab_size.indexOf(self.tbw_rotate), QCoreApplication.translate("MainWindow", u"\u65cb\u8f6c", None))

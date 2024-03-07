@@ -53,14 +53,14 @@ class ProcessWindow(QMainWindow, Ui_MainWindow):
         self.btn_origin.clicked.connect(self.set_origin)
 
         self.slider_rotate.valueChanged.connect(
-            lambda x: self.rotate_angle.setText(f"{x}°")
+            lambda x: self.rotate_angle.setText(f"{x-180}°")
         )
         self.slider_rotate.valueChanged.connect(self.set_image)
 
         self.checkBox_cut.stateChanged.connect(self.set_cut)
         self.cut_height.valueChanged.connect(self.set_cut)
         self.cut_width.valueChanged.connect(self.set_cut)
-        self.view.graphicsScene.cut_rectangle_clicked.connect(self.cut_image)
+        self.btn_confirm_cut.clicked.connect(self.cut_image)
 
         self.checkBox_CLAHE.stateChanged.connect(self.set_CLAHE)
         self.CLAHE_clip.valueChanged.connect(self.set_CLAHE)
@@ -101,7 +101,7 @@ class ProcessWindow(QMainWindow, Ui_MainWindow):
         self.show_image()
 
     def apply_rotate(self, image: Image.Image):
-        return image.rotate(self.slider_rotate.value())
+        return image.rotate(self.slider_rotate.value()-180)
 
     def show_image(self):
         self.image = Image.open(self.selected_file)
@@ -136,10 +136,12 @@ class ProcessWindow(QMainWindow, Ui_MainWindow):
             width = self.cut_width.value()
             self.view.cut_rectangle.setCutSize(width, height)
 
-    def cut_image(self, point: QPointF):
+    def cut_image(self):
         if self.output_dir is None or not self.output_dir.exists():
             QMessageBox.warning(self, "警告", "输出文件夹不存在！")
             return
+        point = self.mapTo(self.view, self.cursor().pos())
+        point = self.view.mapToScene(point)
         point = point.toPoint()
         x, y = point.x(), point.y()
         w, h = self.view.cut_rectangle.cut_width, self.view.cut_rectangle.cut_height

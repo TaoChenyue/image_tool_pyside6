@@ -296,6 +296,16 @@
                 </property>
                </widget>
               </item>
+              <item>
+               <widget class="QPushButton" name="btn_confirm_cut">
+                <property name="text">
+                 <string>确认裁剪</string>
+                </property>
+                <property name="shortcut">
+                 <string>S</string>
+                </property>
+               </widget>
+              </item>
              </layout>
             </widget>
             <widget class="QWidget" name="tbw_rotate">
@@ -314,6 +324,9 @@
                <widget class="QSlider" name="slider_rotate">
                 <property name="maximum">
                  <number>360</number>
+                </property>
+                <property name="value">
+                 <number>180</number>
                 </property>
                 <property name="orientation">
                  <enum>Qt::Horizontal</enum>
@@ -340,24 +353,6 @@
     </item>
    </layout>
   </widget>
-  <action name="actionOrigin">
-   <property name="text">
-    <string>原图</string>
-   </property>
-  </action>
-  <action name="actionCLAHE">
-   <property name="text">
-    <string>CLAHE</string>
-   </property>
-  </action>
-  <action name="actioncut">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="text">
-    <string>裁剪</string>
-   </property>
-  </action>
  </widget>
  <customwidgets>
   <customwidget>
