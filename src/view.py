@@ -46,6 +46,7 @@ class CutRectangleItem(QGraphicsRectItem):
 
 class ImageViewer(QGraphicsView):
     """图片查看器"""
+    cut_clicked: Signal = Signal(QPointF)
 
     def __init__(self, parent=None):
         super().__init__(parent=parent)
@@ -211,6 +212,11 @@ class ImageViewer(QGraphicsView):
         self.cursorPos = self.mapToScene(event.pos())
         return super().mouseMoveEvent(event)
 
+    def mousePressEvent(self, event: QMouseEvent) -> None:
+        if event.button() == Qt.MouseButton.LeftButton:
+            if self.cut_rectangle.isVisible():
+                self.cut_clicked.emit(self.mapToScene(event.pos()))
+        return super().mousePressEvent(event)
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

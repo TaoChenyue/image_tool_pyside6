@@ -60,7 +60,7 @@ class ProcessWindow(QMainWindow, Ui_MainWindow):
         self.checkBox_cut.stateChanged.connect(self.set_cut)
         self.cut_height.valueChanged.connect(self.set_cut)
         self.cut_width.valueChanged.connect(self.set_cut)
-        self.btn_confirm_cut.clicked.connect(self.cut_image)
+        self.view.cut_clicked.connect(self.cut_image)
 
         self.checkBox_CLAHE.stateChanged.connect(self.set_CLAHE)
         self.CLAHE_clip.valueChanged.connect(self.set_CLAHE)

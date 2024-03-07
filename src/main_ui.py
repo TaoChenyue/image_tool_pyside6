@@ -221,11 +221,6 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_3.addWidget(self.cut_height)
 
-        self.btn_confirm_cut = QPushButton(self.tbw_cut)
-        self.btn_confirm_cut.setObjectName(u"btn_confirm_cut")
-
-        self.horizontalLayout_3.addWidget(self.btn_confirm_cut)
-
         self.tab_size.addTab(self.tbw_cut, "")
         self.tbw_rotate = QWidget()
         self.tbw_rotate.setObjectName(u"tbw_rotate")
@@ -264,7 +259,7 @@ class Ui_MainWindow(object):
 
         self.tab_transform.setCurrentIndex(1)
         self.tab_CLAHE.setCurrentIndex(0)
-        self.tab_size.setCurrentIndex(1)
+        self.tab_size.setCurrentIndex(0)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -277,12 +272,12 @@ class Ui_MainWindow(object):
         self.btn_clearfiles.setText(QCoreApplication.translate("MainWindow", u"\u6e05\u7a7a\u6587\u4ef6", None))
         self.btn_output.setText(QCoreApplication.translate("MainWindow", u"\u8f93\u51fa\u6587\u4ef6\u5939", None))
         self.lb_output_path.setText(QCoreApplication.translate("MainWindow", u"\u6587\u4ef6\u5939\u8def\u5f84", None))
-        self.btn_last_image.setText(QCoreApplication.translate("MainWindow", u"\u4e0a\u4e00\u5f20", None))
+        self.btn_last_image.setText(QCoreApplication.translate("MainWindow", u"\u4e0a\u4e00\u5f20(A)", None))
 #if QT_CONFIG(shortcut)
         self.btn_last_image.setShortcut(QCoreApplication.translate("MainWindow", u"A", None))
 #endif // QT_CONFIG(shortcut)
         self.btn_origin.setText(QCoreApplication.translate("MainWindow", u"\u539f\u56fe", None))
-        self.btn_next_image.setText(QCoreApplication.translate("MainWindow", u"\u4e0b\u4e00\u5f20", None))
+        self.btn_next_image.setText(QCoreApplication.translate("MainWindow", u"\u4e0b\u4e00\u5f20(D)", None))
 #if QT_CONFIG(shortcut)
         self.btn_next_image.setShortcut(QCoreApplication.translate("MainWindow", u"D", None))
 #endif // QT_CONFIG(shortcut)
@@ -296,10 +291,6 @@ class Ui_MainWindow(object):
         self.checkBox_cut_origin.setText(QCoreApplication.translate("MainWindow", u"\u4f7f\u7528\u539f\u56fe", None))
         self.label_3.setText(QCoreApplication.translate("MainWindow", u"\u5bbd", None))
         self.label_4.setText(QCoreApplication.translate("MainWindow", u"\u9ad8", None))
-        self.btn_confirm_cut.setText(QCoreApplication.translate("MainWindow", u"\u786e\u8ba4\u88c1\u526a", None))
-#if QT_CONFIG(shortcut)
-        self.btn_confirm_cut.setShortcut(QCoreApplication.translate("MainWindow", u"S", None))
-#endif // QT_CONFIG(shortcut)
         self.tab_size.setTabText(self.tab_size.indexOf(self.tbw_cut), QCoreApplication.translate("MainWindow", u"\u88c1\u526a", None))
         self.rotate_angle.setText(QCoreApplication.translate("MainWindow", u"0", None))
         self.tab_size.setTabText(self.tab_size.indexOf(self.tbw_rotate), QCoreApplication.translate("MainWindow", u"\u65cb\u8f6c", None))

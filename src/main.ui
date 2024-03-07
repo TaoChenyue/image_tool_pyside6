@@ -90,7 +90,7 @@
               <item>
                <widget class="QPushButton" name="btn_last_image">
                 <property name="text">
-                 <string>上一张</string>
+                 <string>上一张(A)</string>
                 </property>
                 <property name="shortcut">
                  <string>A</string>
@@ -107,7 +107,7 @@
               <item>
                <widget class="QPushButton" name="btn_next_image">
                 <property name="text">
-                 <string>下一张</string>
+                 <string>下一张(D)</string>
                 </property>
                 <property name="shortcut">
                  <string>D</string>
@@ -235,7 +235,7 @@
           <item row="0" column="0">
            <widget class="QTabWidget" name="tab_size">
             <property name="currentIndex">
-             <number>1</number>
+             <number>0</number>
             </property>
             <widget class="QWidget" name="tbw_cut">
              <property name="sizePolicy">
@@ -293,16 +293,6 @@
                 </property>
                 <property name="value">
                  <number>128</number>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="btn_confirm_cut">
-                <property name="text">
-                 <string>确认裁剪</string>
-                </property>
-                <property name="shortcut">
-                 <string>S</string>
                 </property>
                </widget>
               </item>
