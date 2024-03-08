@@ -116,7 +116,7 @@ class Ui_MainWindow(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollAreaWidgetContents = QWidget()
         self.scrollAreaWidgetContents.setObjectName(u"scrollAreaWidgetContents")
-        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 385, 1800))
+        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 379, 1800))
         self.scrollAreaWidgetContents.setMinimumSize(QSize(200, 1800))
         self.verticalLayout_3 = QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout_3.setObjectName(u"verticalLayout_3")
@@ -162,22 +162,17 @@ class Ui_MainWindow(object):
         self.frame_4.setFrameShadow(QFrame.Raised)
         self.gridLayout_5 = QGridLayout(self.frame_4)
         self.gridLayout_5.setObjectName(u"gridLayout_5")
-        self.label_4 = QLabel(self.frame_4)
-        self.label_4.setObjectName(u"label_4")
-
-        self.gridLayout_5.addWidget(self.label_4, 1, 1, 1, 1)
-
-        self.checkBox_cut = QCheckBox(self.frame_4)
-        self.checkBox_cut.setObjectName(u"checkBox_cut")
-
-        self.gridLayout_5.addWidget(self.checkBox_cut, 0, 0, 1, 1)
-
         self.cut_height = QSpinBox(self.frame_4)
         self.cut_height.setObjectName(u"cut_height")
         self.cut_height.setMaximum(10000)
         self.cut_height.setValue(128)
 
         self.gridLayout_5.addWidget(self.cut_height, 1, 2, 1, 1)
+
+        self.checkBox_cut = QCheckBox(self.frame_4)
+        self.checkBox_cut.setObjectName(u"checkBox_cut")
+
+        self.gridLayout_5.addWidget(self.checkBox_cut, 0, 0, 1, 1)
 
         self.checkBox_cut_origin = QCheckBox(self.frame_4)
         self.checkBox_cut_origin.setObjectName(u"checkBox_cut_origin")
@@ -195,6 +190,16 @@ class Ui_MainWindow(object):
         self.cut_width.setValue(128)
 
         self.gridLayout_5.addWidget(self.cut_width, 0, 2, 1, 1)
+
+        self.label_4 = QLabel(self.frame_4)
+        self.label_4.setObjectName(u"label_4")
+
+        self.gridLayout_5.addWidget(self.label_4, 1, 1, 1, 1)
+
+        self.cut_whole = QPushButton(self.frame_4)
+        self.cut_whole.setObjectName(u"cut_whole")
+
+        self.gridLayout_5.addWidget(self.cut_whole, 2, 0, 1, 1)
 
 
         self.verticalLayout_3.addWidget(self.frame_4)
@@ -235,6 +240,13 @@ class Ui_MainWindow(object):
 
 
         self.verticalLayout_3.addWidget(self.frame_5)
+
+        self.frame_6 = QFrame(self.scrollAreaWidgetContents)
+        self.frame_6.setObjectName(u"frame_6")
+        self.frame_6.setFrameShape(QFrame.StyledPanel)
+        self.frame_6.setFrameShadow(QFrame.Raised)
+
+        self.verticalLayout_3.addWidget(self.frame_6)
 
         self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
 
@@ -292,10 +304,14 @@ class Ui_MainWindow(object):
         self.label_2.setText(QCoreApplication.translate("MainWindow", u"\u81ea\u9002\u5e94\u5c3a\u5bf8", None))
         self.label.setText(QCoreApplication.translate("MainWindow", u"\u9650\u5236\u5bf9\u6bd4\u5ea6", None))
         self.checkBox_CLAHE.setText(QCoreApplication.translate("MainWindow", u"CLAHE", None))
-        self.label_4.setText(QCoreApplication.translate("MainWindow", u"\u9ad8", None))
         self.checkBox_cut.setText(QCoreApplication.translate("MainWindow", u"\u542f\u7528\u88c1\u526a", None))
         self.checkBox_cut_origin.setText(QCoreApplication.translate("MainWindow", u"\u4f7f\u7528\u539f\u56fe", None))
         self.label_3.setText(QCoreApplication.translate("MainWindow", u"\u5bbd", None))
+        self.label_4.setText(QCoreApplication.translate("MainWindow", u"\u9ad8", None))
+        self.cut_whole.setText(QCoreApplication.translate("MainWindow", u"\u88c1\u526a\u6574\u56fe(S)", None))
+#if QT_CONFIG(shortcut)
+        self.cut_whole.setShortcut(QCoreApplication.translate("MainWindow", u"S", None))
+#endif // QT_CONFIG(shortcut)
         self.label_5.setText(QCoreApplication.translate("MainWindow", u"\u65cb\u8f6c\u89d2\u5ea6", None))
         self.rotate_angle.setText(QCoreApplication.translate("MainWindow", u"0", None))
         self.btn_rotate_left.setText(QCoreApplication.translate("MainWindow", u"\u987a\u65f6\u9488(\u2190)", None))

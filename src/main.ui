@@ -130,7 +130,7 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>385</width>
+             <width>379</width>
              <height>1800</height>
             </rect>
            </property>
@@ -197,20 +197,6 @@
                <enum>QFrame::Raised</enum>
               </property>
               <layout class="QGridLayout" name="gridLayout_5">
-               <item row="1" column="1">
-                <widget class="QLabel" name="label_4">
-                 <property name="text">
-                  <string>高</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="0">
-                <widget class="QCheckBox" name="checkBox_cut">
-                 <property name="text">
-                  <string>启用裁剪</string>
-                 </property>
-                </widget>
-               </item>
                <item row="1" column="2">
                 <widget class="QSpinBox" name="cut_height">
                  <property name="maximum">
@@ -218,6 +204,13 @@
                  </property>
                  <property name="value">
                   <number>128</number>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="0">
+                <widget class="QCheckBox" name="checkBox_cut">
+                 <property name="text">
+                  <string>启用裁剪</string>
                  </property>
                 </widget>
                </item>
@@ -242,6 +235,23 @@
                  </property>
                  <property name="value">
                   <number>128</number>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="1">
+                <widget class="QLabel" name="label_4">
+                 <property name="text">
+                  <string>高</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="0">
+                <widget class="QPushButton" name="cut_whole">
+                 <property name="text">
+                  <string>裁剪整图(S)</string>
+                 </property>
+                 <property name="shortcut">
+                  <string>S</string>
                  </property>
                 </widget>
                </item>
@@ -305,6 +315,16 @@
                 </widget>
                </item>
               </layout>
+             </widget>
+            </item>
+            <item>
+             <widget class="QFrame" name="frame_6">
+              <property name="frameShape">
+               <enum>QFrame::StyledPanel</enum>
+              </property>
+              <property name="frameShadow">
+               <enum>QFrame::Raised</enum>
+              </property>
              </widget>
             </item>
             <item>

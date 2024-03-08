@@ -34,8 +34,8 @@ class ProcessWindow(QMainWindow, Ui_MainWindow):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setupUi(self)
-        self.splitter.setStretchFactor(1,5)
-        self.splitter_2.setStretchFactor(1,5)
+        self.splitter.setStretchFactor(1, 5)
+        self.splitter_2.setStretchFactor(1, 5)
 
         self.output_dir: Path | None = None
         self.image: Image.Image | None = None
@@ -54,13 +54,18 @@ class ProcessWindow(QMainWindow, Ui_MainWindow):
             lambda x: self.rotate_angle.setText(f"{x-180}°")
         )
         self.slider_rotate.valueChanged.connect(self.set_image)
-        self.btn_rotate_left.clicked.connect(lambda: self.slider_rotate.setValue(self.slider_rotate.value() - 1))
-        self.btn_rotate_right.clicked.connect(lambda: self.slider_rotate.setValue(self.slider_rotate.value() + 1))
+        self.btn_rotate_left.clicked.connect(
+            lambda: self.slider_rotate.setValue(self.slider_rotate.value() - 1)
+        )
+        self.btn_rotate_right.clicked.connect(
+            lambda: self.slider_rotate.setValue(self.slider_rotate.value() + 1)
+        )
 
         self.checkBox_cut.stateChanged.connect(self.set_cut)
         self.cut_height.valueChanged.connect(self.set_cut)
         self.cut_width.valueChanged.connect(self.set_cut)
         self.view.cut_clicked.connect(self.cut_image)
+        self.cut_whole.clicked.connect(lambda: self.cut_image(None))
 
         self.checkBox_CLAHE.stateChanged.connect(self.set_CLAHE)
         self.CLAHE_clip.valueChanged.connect(self.set_CLAHE)
@@ -74,12 +79,12 @@ class ProcessWindow(QMainWindow, Ui_MainWindow):
         )
         self.lst_files.addItems(files)
         self.update_filesinfo()
-        
+
     def update_filesinfo(self):
         self.lb_input_nums.setText(
             f"{self.lst_files.currentRow()+1}/{self.lst_files.count()}"
         )
-        
+
     def clear_files(self):
         self.lst_files.clear()
         self.update_filesinfo()
@@ -101,7 +106,7 @@ class ProcessWindow(QMainWindow, Ui_MainWindow):
         self.show_image()
 
     def apply_rotate(self, image: Image.Image):
-        return image.rotate(self.slider_rotate.value()-180)
+        return image.rotate(self.slider_rotate.value() - 180)
 
     def show_image(self):
         self.image = Image.open(self.selected_file)
@@ -136,23 +141,27 @@ class ProcessWindow(QMainWindow, Ui_MainWindow):
             width = self.cut_width.value()
             self.view.cut_rectangle.setCutSize(width, height)
 
-    def cut_image(self):
+    def cut_image(self, point: QPointF | None):
         if self.output_dir is None or not self.output_dir.exists():
             QMessageBox.warning(self, "警告", "输出文件夹不存在！")
             return
-        point = self.view.cursorPos
-        point = point.toPoint()
-        x, y = point.x(), point.y()
-        w, h = self.view.cut_rectangle.cut_width, self.view.cut_rectangle.cut_height
-        dialog = ConfirmCutDialog()
+
         if self.checkBox_cut_origin.isChecked():
             image = self.image.copy()
         else:
             image = self.image_now.copy()
         image = self.apply_rotate(image)
-        image = image.crop((x - w / 2, y - h / 2, x + w / 2, y + h / 2))
+        if point is not None:
+            # point = self.view.cursorPos
+            point = point.toPoint()
+            x, y = point.x(), point.y()
+            w, h = self.view.cut_rectangle.cut_width, self.view.cut_rectangle.cut_height
+            image = image.crop((x - w / 2, y - h / 2, x + w / 2, y + h / 2))
+        dialog = ConfirmCutDialog()
         dialog.image.setPixmap(ImageQt.toqpixmap(image))
-        save_name = f"{self.selected_file.stem}_{time.strftime('%Y%m%d%H%M%S',time.localtime())}{self.selected_file.suffix}"
+        save_name = self.selected_file.name
+        if (self.output_dir / save_name).exists():
+            save_name = f"{self.selected_file.stem}_{time.strftime('%Y%m%d%H%M%S',time.localtime())}{self.selected_file.suffix}"
         dialog.output_path.setText(save_name)
         if dialog.exec() == QDialog.DialogCode.Rejected:
             return
