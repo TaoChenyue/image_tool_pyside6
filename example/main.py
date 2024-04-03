@@ -12,10 +12,11 @@ import sys
 from main_ui import Ui_MainWindow
 from pathlib import Path
 from PIL import Image
-from process import CLAHETransform, NoTransform, Transform
+from image_transforms import GrayCLAHETransform, ImageTransform,GrayLogTransform,GrayGammaTransform
 from confirm_cut_ui import Ui_Dialog as Ui_ConfirmCut
 from PIL import Image, ImageQt
 import time
+import json
 
 
 class ConfirmCutDialog(QDialog, Ui_ConfirmCut):
@@ -36,11 +37,14 @@ class ProcessWindow(QMainWindow, Ui_MainWindow):
         self.setupUi(self)
         self.splitter.setStretchFactor(1, 5)
         self.splitter_2.setStretchFactor(1, 5)
+        
+        self.backup = Path("backup.json")
+        self.load_filesinfo()
 
         self.output_dir: Path | None = None
         self.image: Image.Image | None = None
         self.image_now: Image.Image | None = None
-        self.current_transform: Transform = NoTransform()
+        self.current_transform: ImageTransform = ImageTransform()
 
         self.btn_input.clicked.connect(self.open_input_dialog)
         self.btn_output.clicked.connect(self.open_output_dialog)
@@ -70,6 +74,12 @@ class ProcessWindow(QMainWindow, Ui_MainWindow):
         self.checkBox_CLAHE.stateChanged.connect(self.set_CLAHE)
         self.CLAHE_clip.valueChanged.connect(self.set_CLAHE)
         self.CLAHE_size.valueChanged.connect(self.set_CLAHE)
+        
+        self.checkBox_LOG.stateChanged.connect(self.set_LOG)
+        self.LOG_v.valueChanged.connect(self.set_LOG)
+        
+        self.checkBox_GAMMA.stateChanged.connect(self.set_GAMMA)
+        self.GAMMA_c.valueChanged.connect(self.set_GAMMA)
 
     def open_input_dialog(self):
         files, filetype = QFileDialog.getOpenFileNames(
@@ -77,8 +87,20 @@ class ProcessWindow(QMainWindow, Ui_MainWindow):
             caption="选择输入文件",
             filter="Image Files (*.bmp *.jpg *.jpeg *.png);;All Files (*)",
         )
+        self.save_filesinfo(files)
         self.lst_files.addItems(files)
         self.update_filesinfo()
+        
+    def save_filesinfo(self,files):
+        with open(self.backup,"w",encoding="utf-8") as f:
+            json.dump(files,f)
+            
+    def load_filesinfo(self):
+        if self.backup.exists():
+            with open(self.backup,"r",encoding="utf-8") as f:
+                files=json.load(f)
+                self.lst_files.addItems(files)
+                self.update_filesinfo()
 
     def update_filesinfo(self):
         self.lb_input_nums.setText(
@@ -117,18 +139,36 @@ class ProcessWindow(QMainWindow, Ui_MainWindow):
         self.view.setImage(self.apply_rotate(self.image_now))
 
     def set_origin(self):
-        self.current_transform = NoTransform()
+        self.current_transform = ImageTransform()
         self.set_image()
 
     def set_CLAHE(self):
         if not self.checkBox_CLAHE.isChecked():
-            self.current_transform = NoTransform()
+            self.current_transform = ImageTransform()
         else:
             clipLimit = self.CLAHE_clip.value()
             tileGridSize = self.CLAHE_size.value()
-            transform = CLAHETransform(
+            transform = GrayCLAHETransform(
                 clipLimit=clipLimit, tileGridSize=(tileGridSize, tileGridSize)
             )
+            self.current_transform = transform
+        self.set_image()
+        
+    def set_LOG(self):
+        if not self.checkBox_LOG.isChecked():
+            self.current_transform = ImageTransform()
+        else:
+            v = self.LOG_v.value()
+            transform = GrayLogTransform(v=v)
+            self.current_transform = transform
+        self.set_image()
+        
+    def set_GAMMA(self):
+        if not self.checkBox_GAMMA.isChecked():
+            self.current_transform = ImageTransform()
+        else:
+            c = self.GAMMA_c.value()
+            transform = GrayGammaTransform(gamma=c)
             self.current_transform = transform
         self.set_image()
 
