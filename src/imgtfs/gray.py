@@ -13,6 +13,7 @@ __all__ = [
     "GrayMeanStdTransform",
 ]
 
+epsilon = 1e-8
 
 class GrayTransform(ImageTransform):
     def __init__(self) -> None:
@@ -21,7 +22,8 @@ class GrayTransform(ImageTransform):
     def image_to_numpy(self, image: Image.Image):
         image = image.convert("L")
         image = np.array(image, dtype=np.uint8)
-        image = cv2.normalize(image, None, 0.0, 1.0, cv2.NORM_MINMAX, dtype=cv2.CV_32F)
+        image = cv2.normalize(image, None, 0.0, 1.0, cv2.NORM_MINMAX, dtype=cv2.CV_32FC1)
+        image = np.clip(image, 0.0, 1.0)
         return image
 
     def numpy_to_image(self, image: np.ndarray) -> Image.Image:
@@ -63,7 +65,7 @@ class GrayGammaAutoTransform(GrayTransform):
 
     def core(self, image: np.ndarray) -> np.ndarray:
         mean = np.mean(image)
-        gamma = np.log(0.5) / np.log(mean)
+        gamma = np.log(0.5) / np.log(mean+epsilon)
         return np.power(image, gamma)
 
 
@@ -85,10 +87,10 @@ class GrayCLAHETransform(GrayTransform):
     def image_to_numpy(self, image: Image.Image):
         image = image.convert("L")
         image = np.array(image, dtype=np.uint8)
+        image = cv2.normalize(image, None, 0, 255, cv2.NORM_MINMAX, dtype=cv2.CV_8UC1)
         return image
 
     def numpy_to_image(self, image: np.ndarray) -> Image.Image:
-        image = cv2.normalize(image, None, 0, 255, cv2.NORM_MINMAX, dtype=cv2.CV_8UC1)
         return Image.fromarray(image)
 
     def core(self, image: np.ndarray) -> np.ndarray:
@@ -109,6 +111,8 @@ class GrayMeanStdTransform(GrayTransform):
     def core(self, image: np.ndarray) -> np.ndarray:
         mean = np.mean(image)
         std = np.std(image)
+        if std==0.0:
+            std = epsilon
         image = (image - mean) / std
         image = image * self.std + self.mean
         return image

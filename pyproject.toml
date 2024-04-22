@@ -1,6 +1,6 @@
 [project]
 name = "image_transforms"
-version = "0.0.1"
+version = "0.0.2"
 description = "simple image transformations"
 authors = [
     {name = "TaoChenyue", email = "chenyue.Tao@qq.com"},
