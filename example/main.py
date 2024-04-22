@@ -12,7 +12,7 @@ import sys
 from main_ui import Ui_MainWindow
 from pathlib import Path
 from PIL import Image
-from image_transforms import GrayCLAHETransform, ImageTransform,GrayLogTransform,GrayGammaTransform
+import imgtfs
 from confirm_cut_ui import Ui_Dialog as Ui_ConfirmCut
 from PIL import Image, ImageQt
 import time
@@ -37,14 +37,14 @@ class ProcessWindow(QMainWindow, Ui_MainWindow):
         self.setupUi(self)
         self.splitter.setStretchFactor(1, 5)
         self.splitter_2.setStretchFactor(1, 5)
-        
+
         self.backup = Path("backup.json")
         self.load_filesinfo()
 
         self.output_dir: Path | None = None
         self.image: Image.Image | None = None
         self.image_now: Image.Image | None = None
-        self.current_transform: ImageTransform = ImageTransform()
+        self.current_transform: imgtfs.ImageTransform = imgtfs.ImageTransform()
 
         self.btn_input.clicked.connect(self.open_input_dialog)
         self.btn_output.clicked.connect(self.open_output_dialog)
@@ -74,12 +74,20 @@ class ProcessWindow(QMainWindow, Ui_MainWindow):
         self.checkBox_CLAHE.stateChanged.connect(self.set_CLAHE)
         self.CLAHE_clip.valueChanged.connect(self.set_CLAHE)
         self.CLAHE_size.valueChanged.connect(self.set_CLAHE)
-        
+
+        self.checkBox_HE.stateChanged.connect(self.set_HE)
+
         self.checkBox_LOG.stateChanged.connect(self.set_LOG)
         self.LOG_v.valueChanged.connect(self.set_LOG)
-        
+
         self.checkBox_GAMMA.stateChanged.connect(self.set_GAMMA)
         self.GAMMA_c.valueChanged.connect(self.set_GAMMA)
+        
+        self.checkBox_AutoGamma.stateChanged.connect(self.set_AutoGamma)
+        
+        self.checkBox_MeanStd.stateChanged.connect(self.set_MeanStd)
+        self.MeanStd_mean.valueChanged.connect(self.set_MeanStd)
+        self.MeanStd_std.valueChanged.connect(self.set_MeanStd)
 
     def open_input_dialog(self):
         files, filetype = QFileDialog.getOpenFileNames(
@@ -90,15 +98,15 @@ class ProcessWindow(QMainWindow, Ui_MainWindow):
         self.save_filesinfo(files)
         self.lst_files.addItems(files)
         self.update_filesinfo()
-        
-    def save_filesinfo(self,files):
-        with open(self.backup,"w",encoding="utf-8") as f:
-            json.dump(files,f)
-            
+
+    def save_filesinfo(self, files):
+        with open(self.backup, "w", encoding="utf-8") as f:
+            json.dump(files, f)
+
     def load_filesinfo(self):
         if self.backup.exists():
-            with open(self.backup,"r",encoding="utf-8") as f:
-                files=json.load(f)
+            with open(self.backup, "r", encoding="utf-8") as f:
+                files = json.load(f)
                 self.lst_files.addItems(files)
                 self.update_filesinfo()
 
@@ -139,36 +147,62 @@ class ProcessWindow(QMainWindow, Ui_MainWindow):
         self.view.setImage(self.apply_rotate(self.image_now))
 
     def set_origin(self):
-        self.current_transform = ImageTransform()
+        self.current_transform = imgtfs.ImageTransform()
         self.set_image()
 
     def set_CLAHE(self):
         if not self.checkBox_CLAHE.isChecked():
-            self.current_transform = ImageTransform()
+            self.current_transform = imgtfs.ImageTransform()
         else:
             clipLimit = self.CLAHE_clip.value()
             tileGridSize = self.CLAHE_size.value()
-            transform = GrayCLAHETransform(
+            transform = imgtfs.GrayCLAHETransform(
                 clipLimit=clipLimit, tileGridSize=(tileGridSize, tileGridSize)
             )
             self.current_transform = transform
         self.set_image()
-        
+
+    def set_HE(self):
+        if not self.checkBox_HE.isChecked():
+            self.current_transform = imgtfs.ImageTransform()
+        else:
+            transform = imgtfs.GrayHETransform()
+            self.current_transform = transform
+        self.set_image()
+
     def set_LOG(self):
         if not self.checkBox_LOG.isChecked():
-            self.current_transform = ImageTransform()
+            self.current_transform = imgtfs.ImageTransform()
         else:
             v = self.LOG_v.value()
-            transform = GrayLogTransform(v=v)
+            transform = imgtfs.GrayLogTransform(value=v)
+            self.current_transform = transform
+        self.set_image()
+
+    def set_GAMMA(self):
+        if not self.checkBox_GAMMA.isChecked():
+            self.current_transform = imgtfs.ImageTransform()
+        else:
+            c = self.GAMMA_c.value()
+            transform = imgtfs.GrayGammaTransform(gamma=c)
             self.current_transform = transform
         self.set_image()
         
-    def set_GAMMA(self):
-        if not self.checkBox_GAMMA.isChecked():
-            self.current_transform = ImageTransform()
+    def set_AutoGamma(self):
+        if not self.checkBox_AutoGamma.isChecked():
+            self.current_transform = imgtfs.ImageTransform()
         else:
-            c = self.GAMMA_c.value()
-            transform = GrayGammaTransform(gamma=c)
+            transform = imgtfs.GrayGammaAutoTransform()
+            self.current_transform = transform
+        self.set_image()
+        
+    def set_MeanStd(self):
+        if not self.checkBox_MeanStd.isChecked():
+            self.current_transform = imgtfs.ImageTransform()
+        else:
+            mean = self.MeanStd_mean.value()
+            std = self.MeanStd_std.value()
+            transform = imgtfs.GrayMeanStdTransform(mean=mean, std=std)
             self.current_transform = transform
         self.set_image()
 

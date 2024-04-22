@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'main.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.6.3
+## Created by: Qt User Interface Compiler version 6.4.3
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -117,7 +117,7 @@ class Ui_MainWindow(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollAreaWidgetContents = QWidget()
         self.scrollAreaWidgetContents.setObjectName(u"scrollAreaWidgetContents")
-        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 379, 1800))
+        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 406, 1800))
         self.scrollAreaWidgetContents.setMinimumSize(QSize(200, 1800))
         self.scrollAreaWidgetContents.setStyleSheet(u".QFrame{\n"
 "	border: 1px solid black;\n"
@@ -159,6 +159,25 @@ class Ui_MainWindow(object):
 
 
         self.verticalLayout_3.addWidget(self.frame_3)
+
+        self.frame_6 = QFrame(self.scrollAreaWidgetContents)
+        self.frame_6.setObjectName(u"frame_6")
+        self.frame_6.setFrameShape(QFrame.StyledPanel)
+        self.frame_6.setFrameShadow(QFrame.Raised)
+        self.gridLayout_7 = QGridLayout(self.frame_6)
+        self.gridLayout_7.setObjectName(u"gridLayout_7")
+        self.checkBox_HE = QCheckBox(self.frame_6)
+        self.checkBox_HE.setObjectName(u"checkBox_HE")
+
+        self.gridLayout_7.addWidget(self.checkBox_HE, 0, 0, 1, 1)
+
+        self.checkBox_AutoGamma = QCheckBox(self.frame_6)
+        self.checkBox_AutoGamma.setObjectName(u"checkBox_AutoGamma")
+
+        self.gridLayout_7.addWidget(self.checkBox_AutoGamma, 0, 1, 1, 1)
+
+
+        self.verticalLayout_3.addWidget(self.frame_6)
 
         self.frame_7 = QFrame(self.scrollAreaWidgetContents)
         self.frame_7.setObjectName(u"frame_7")
@@ -217,6 +236,44 @@ class Ui_MainWindow(object):
 
 
         self.verticalLayout_3.addWidget(self.frame_8)
+
+        self.frame_9 = QFrame(self.scrollAreaWidgetContents)
+        self.frame_9.setObjectName(u"frame_9")
+        self.frame_9.setFrameShape(QFrame.StyledPanel)
+        self.frame_9.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_3 = QHBoxLayout(self.frame_9)
+        self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
+        self.checkBox_MeanStd = QCheckBox(self.frame_9)
+        self.checkBox_MeanStd.setObjectName(u"checkBox_MeanStd")
+
+        self.horizontalLayout_3.addWidget(self.checkBox_MeanStd)
+
+        self.label_8 = QLabel(self.frame_9)
+        self.label_8.setObjectName(u"label_8")
+
+        self.horizontalLayout_3.addWidget(self.label_8)
+
+        self.MeanStd_mean = QDoubleSpinBox(self.frame_9)
+        self.MeanStd_mean.setObjectName(u"MeanStd_mean")
+        self.MeanStd_mean.setMaximum(255.000000000000000)
+        self.MeanStd_mean.setValue(127.000000000000000)
+
+        self.horizontalLayout_3.addWidget(self.MeanStd_mean)
+
+        self.label_9 = QLabel(self.frame_9)
+        self.label_9.setObjectName(u"label_9")
+
+        self.horizontalLayout_3.addWidget(self.label_9)
+
+        self.MeanStd_std = QDoubleSpinBox(self.frame_9)
+        self.MeanStd_std.setObjectName(u"MeanStd_std")
+        self.MeanStd_std.setMaximum(255.000000000000000)
+        self.MeanStd_std.setValue(32.000000000000000)
+
+        self.horizontalLayout_3.addWidget(self.MeanStd_std)
+
+
+        self.verticalLayout_3.addWidget(self.frame_9)
 
         self.frame_4 = QFrame(self.scrollAreaWidgetContents)
         self.frame_4.setObjectName(u"frame_4")
@@ -303,14 +360,7 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_3.addWidget(self.frame_5)
 
-        self.frame_6 = QFrame(self.scrollAreaWidgetContents)
-        self.frame_6.setObjectName(u"frame_6")
-        self.frame_6.setFrameShape(QFrame.StyledPanel)
-        self.frame_6.setFrameShadow(QFrame.Raised)
-
-        self.verticalLayout_3.addWidget(self.frame_6)
-
-        self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
+        self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
 
         self.verticalLayout_3.addItem(self.verticalSpacer)
 
@@ -328,7 +378,7 @@ class Ui_MainWindow(object):
         self.splitter.addWidget(self.view)
         self.lst_files = QListWidget(self.splitter)
         self.lst_files.setObjectName(u"lst_files")
-        sizePolicy = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
+        sizePolicy = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.lst_files.sizePolicy().hasHeightForWidth())
@@ -366,10 +416,15 @@ class Ui_MainWindow(object):
         self.label_2.setText(QCoreApplication.translate("MainWindow", u"\u81ea\u9002\u5e94\u5c3a\u5bf8", None))
         self.label.setText(QCoreApplication.translate("MainWindow", u"\u9650\u5236\u5bf9\u6bd4\u5ea6", None))
         self.checkBox_CLAHE.setText(QCoreApplication.translate("MainWindow", u"CLAHE", None))
+        self.checkBox_HE.setText(QCoreApplication.translate("MainWindow", u"HE", None))
+        self.checkBox_AutoGamma.setText(QCoreApplication.translate("MainWindow", u"AutoGamma", None))
         self.checkBox_LOG.setText(QCoreApplication.translate("MainWindow", u"LOG", None))
         self.label_6.setText(QCoreApplication.translate("MainWindow", u"\u53c2\u6570", None))
         self.checkBox_GAMMA.setText(QCoreApplication.translate("MainWindow", u"GAMMA", None))
         self.label_7.setText(QCoreApplication.translate("MainWindow", u"\u53c2\u6570", None))
+        self.checkBox_MeanStd.setText(QCoreApplication.translate("MainWindow", u"MeanStd", None))
+        self.label_8.setText(QCoreApplication.translate("MainWindow", u"\u5e73\u5747\u503c", None))
+        self.label_9.setText(QCoreApplication.translate("MainWindow", u"\u65b9\u5dee", None))
         self.checkBox_cut.setText(QCoreApplication.translate("MainWindow", u"\u542f\u7528\u88c1\u526a", None))
         self.checkBox_cut_origin.setText(QCoreApplication.translate("MainWindow", u"\u4f7f\u7528\u539f\u56fe", None))
         self.label_3.setText(QCoreApplication.translate("MainWindow", u"\u5bbd", None))

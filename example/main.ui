@@ -133,7 +133,7 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>379</width>
+             <width>406</width>
              <height>1800</height>
             </rect>
            </property>
@@ -190,6 +190,32 @@
                 <widget class="QCheckBox" name="checkBox_CLAHE">
                  <property name="text">
                   <string>CLAHE</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+            <item>
+             <widget class="QFrame" name="frame_6">
+              <property name="frameShape">
+               <enum>QFrame::StyledPanel</enum>
+              </property>
+              <property name="frameShadow">
+               <enum>QFrame::Raised</enum>
+              </property>
+              <layout class="QGridLayout" name="gridLayout_7">
+               <item row="0" column="0">
+                <widget class="QCheckBox" name="checkBox_HE">
+                 <property name="text">
+                  <string>HE</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="1">
+                <widget class="QCheckBox" name="checkBox_AutoGamma">
+                 <property name="text">
+                  <string>AutoGamma</string>
                  </property>
                 </widget>
                </item>
@@ -280,6 +306,59 @@
                  </property>
                  <property name="value">
                   <double>1.000000000000000</double>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+            <item>
+             <widget class="QFrame" name="frame_9">
+              <property name="frameShape">
+               <enum>QFrame::StyledPanel</enum>
+              </property>
+              <property name="frameShadow">
+               <enum>QFrame::Raised</enum>
+              </property>
+              <layout class="QHBoxLayout" name="horizontalLayout_3">
+               <item>
+                <widget class="QCheckBox" name="checkBox_MeanStd">
+                 <property name="text">
+                  <string>MeanStd</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="label_8">
+                 <property name="text">
+                  <string>平均值</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QDoubleSpinBox" name="MeanStd_mean">
+                 <property name="maximum">
+                  <double>255.000000000000000</double>
+                 </property>
+                 <property name="value">
+                  <double>127.000000000000000</double>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="label_9">
+                 <property name="text">
+                  <string>方差</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QDoubleSpinBox" name="MeanStd_std">
+                 <property name="maximum">
+                  <double>255.000000000000000</double>
+                 </property>
+                 <property name="value">
+                  <double>32.000000000000000</double>
                  </property>
                 </widget>
                </item>
@@ -413,16 +492,6 @@
                 </widget>
                </item>
               </layout>
-             </widget>
-            </item>
-            <item>
-             <widget class="QFrame" name="frame_6">
-              <property name="frameShape">
-               <enum>QFrame::StyledPanel</enum>
-              </property>
-              <property name="frameShadow">
-               <enum>QFrame::Raised</enum>
-              </property>
              </widget>
             </item>
             <item>
