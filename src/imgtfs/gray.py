@@ -49,7 +49,6 @@ class GrayLogTransform(GrayTransform):
 
 
 class GrayGammaTransform(GrayTransform):
-
     def __init__(self, gamma: float = 1.0):
         super().__init__()
         self.gamma = gamma
@@ -82,6 +81,15 @@ class GrayCLAHETransform(GrayTransform):
     ):
         super().__init__()
         self.clahe = cv2.createCLAHE(clipLimit=clipLimit, tileGridSize=tileGridSize)
+
+    def image_to_numpy(self, image: Image.Image):
+        image = image.convert("L")
+        image = np.array(image, dtype=np.uint8)
+        return image
+
+    def numpy_to_image(self, image: np.ndarray) -> Image.Image:
+        image = cv2.normalize(image, None, 0, 255, cv2.NORM_MINMAX, dtype=cv2.CV_8UC1)
+        return Image.fromarray(image)
 
     def core(self, image: np.ndarray) -> np.ndarray:
         return self.clahe.apply(image)
