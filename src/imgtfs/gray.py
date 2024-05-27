@@ -72,18 +72,7 @@ class GrayGammaAutoTransform(GrayTransform):
 class GrayHETransform(GrayTransform):
     def __init__(self) -> None:
         super().__init__()
-
-    def core(self, image: np.ndarray) -> np.ndarray:
-        return cv2.equalizeHist(image)
-
-
-class GrayCLAHETransform(GrayTransform):
-    def __init__(
-        self, clipLimit: float = 4.0, tileGridSize: tuple[int, int] = (12, 12)
-    ):
-        super().__init__()
-        self.clahe = cv2.createCLAHE(clipLimit=clipLimit, tileGridSize=tileGridSize)
-
+        
     def image_to_numpy(self, image: Image.Image):
         image = image.convert("L")
         image = np.array(image, dtype=np.uint8)
@@ -92,6 +81,17 @@ class GrayCLAHETransform(GrayTransform):
 
     def numpy_to_image(self, image: np.ndarray) -> Image.Image:
         return Image.fromarray(image)
+
+    def core(self, image: np.ndarray) -> np.ndarray:
+        return cv2.equalizeHist(image)
+
+
+class GrayCLAHETransform(GrayHETransform):
+    def __init__(
+        self, clipLimit: float = 4.0, tileGridSize: tuple[int, int] = (12, 12)
+    ):
+        super().__init__()
+        self.clahe = cv2.createCLAHE(clipLimit=clipLimit, tileGridSize=tileGridSize)
 
     def core(self, image: np.ndarray) -> np.ndarray:
         return self.clahe.apply(image)
